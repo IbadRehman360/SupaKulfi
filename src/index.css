@@ -1,21 +1,12 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&family=VT323&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --primary: #12bca2;
   --secondary: #6d15df;
 }
-h1,
-h2,
-h3 {
-  margin: 0;
-}
 
-body {
-  margin: 0;
-  color: #333;
-  font-family: "Poppins";
-  background: #f2f2f2;
-}
 nav {
   background: var(--primary);
   padding: 10px 20px;
@@ -72,7 +63,9 @@ nav h1 {
 .kulfi-card .rating {
   position: absolute;
   top: -10px;
-  right: -10px;
+  right: -15px;
+  justify-content: center;
+  text-align: center;
   background-color: rgb(255, 102, 0);
   color: #fff;
   border-radius: 6px;
@@ -80,5 +73,4 @@ nav h1 {
   height: 0;
   padding: 20px 0;
   line-height: 0px;
-  text-align: center;
 }
