@@ -1,10 +1,10 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom"
-import Home from "./pages/Home"
-import Create from "./pages/Create"
-import Update from "./pages/Update"
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+
+import Home from "./pages/Home";
+import Create from "./pages/Create";
+import Update from "./pages/Update";
 
 function App() {
-
   return (
     <BrowserRouter>
       <nav>
