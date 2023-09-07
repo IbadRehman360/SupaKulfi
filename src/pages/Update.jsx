@@ -9,9 +9,11 @@ const Update = () => {
   const [description, setDescription] = useState("");
   const [recipe, setRecipe] = useState("");
   const [kulfiImage, setKulfiImage] = useState("");
-  const { getOneKulfiData, error } = usePrefilledData(id);
+
+  const [ getOneKulfiData, error ] = usePrefilledData(id);
+
+
   useEffect(() => {
-    console.log(getOneKulfiData);
     if (getOneKulfiData) {
       console.log("getOneKulfiData1:", getOneKulfiData);
       setTitle(getOneKulfiData.title);
