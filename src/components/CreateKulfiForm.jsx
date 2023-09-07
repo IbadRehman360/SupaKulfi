@@ -9,7 +9,6 @@ export default function Example() {
   const [recipe, setRecipe] = useState("");
   const [kulfiImage, setKufiImage] = useState("");
   const [error, setErrorMessage] = useState("");
-  const [rating, setRating] = useState(0);
 
   async function formSubmit(event) {
     event.preventDefault();
@@ -21,11 +20,10 @@ export default function Example() {
         );
       } else {
         setErrorMessage("");
-        const { data, error } = await useCreateKulfi(
+        const { error } = await useCreateKulfi(
           title,
           description,
           recipe,
-          rating,
           kulfiImage
         );
         if (error) {

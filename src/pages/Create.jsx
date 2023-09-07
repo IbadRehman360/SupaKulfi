@@ -1,4 +1,4 @@
-import KulfiForm from "../components/KulfiForm";
+import KulfiForm from "../components/CreateKulfiForm";
 
 const Create = () => {
   return (

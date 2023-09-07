@@ -7,15 +7,15 @@ function useKulfi() {
 
   useEffect(() => {
     async function getKulfiData() {
-      try {
-        const { data } = await supabase.from("kulfi").select("*");
+      const { data, error } = await supabase.from("kulfi").select("*");
+
+      if (error) {
+        setErrorData(error);
+      } else {
         setKulfiData(data);
-      } catch (error) {
-        if (error) {
-          setErrorData(error);
-        }
       }
     }
+
     getKulfiData();
   }, []);
 
