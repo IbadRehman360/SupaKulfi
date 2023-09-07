@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import supabase from "../services/supabase";
 import { useEffect, useState } from "react";
 
-async function usePrefilledData(id) {
+function usePrefilledData(id) {
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const [getOneKulfiData, setgetOneKulfiData] = useState([]);
@@ -20,8 +20,7 @@ async function usePrefilledData(id) {
         console.log(error);
       }
       if (data) {
-        console.log(setgetOneKulfiData(data));
-        console.log(data);
+        setgetOneKulfiData(data)
       }
     }
 
