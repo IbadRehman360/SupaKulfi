@@ -5,31 +5,23 @@ import { useEffect, useState } from "react";
 
 const Update = () => {
   const { id } = useParams();
-  const { error: updateError, data } = usePrefilledData(id);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [recipe, setRecipe] = useState("");
   const [kulfiImage, setKulfiImage] = useState("");
-  const [error, setError] = useState("");
+  const { getOneKulfiData, error } = usePrefilledData(id);
   useEffect(() => {
-    if (data) {
-      console.log("data:", data);
-      setTitle(data.title || "");
-      setDescription(data.description || "");
-      setRecipe(data.recipe || "");
-      setKulfiImage(data.kulfiImage || "");
-      console.log("data:", data);
+    console.log(getOneKulfiData);
+    if (getOneKulfiData) {
+      console.log("getOneKulfiData1:", getOneKulfiData);
+      setTitle(getOneKulfiData.title);
+      setDescription(getOneKulfiData.description);
+      setRecipe(getOneKulfiData.recipe);
+      setKulfiImage(getOneKulfiData.kulfiImage);
     }
-  }, [data]);
+  }, [getOneKulfiData, error]);
 
-  function formSubmit(e) {
-    e.preventDefault();
-    if (updateError) {
-      setError(updateError.message || "An error occurred.");
-    } else {
-      setError(null);
-    }
-  }
+  function formSubmit() {}
 
   return (
     <div className="grid justify-center ">

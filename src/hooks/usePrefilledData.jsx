@@ -4,30 +4,30 @@ import { useEffect, useState } from "react";
 
 async function usePrefilledData(id) {
   const navigate = useNavigate();
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
+  const [getOneKulfiData, setgetOneKulfiData] = useState([]);
 
   useEffect(() => {
-    async function updateKulfi() {
-      try {
-        const { data } = await supabase
-          .from("kulfi")
-          .select()
-          .eq("id", id)
-          .single();
-        console.log(data);
-        await setData(data); // Set the data state
-      } catch (error) {
+    async function fetchKulfi() {
+      const { error, data } = await supabase
+        .from("kulfi")
+        .select()
+        .eq("id", id)
+        .single();
+      if (error) {
         navigate("/", { replace: true });
-        console.error("Error getting single kulfi:", error);
-        setError(error.message); // Set the error state with the error message
+        setError(error);
+        console.log(error);
+      }
+      if (data) {
+        console.log(setgetOneKulfiData(data));
+        console.log(data);
       }
     }
 
-    updateKulfi();
+    fetchKulfi();
   }, [id, navigate]);
-
-  return [data, error];
+  return [getOneKulfiData, error];
 }
 
 export default usePrefilledData;
