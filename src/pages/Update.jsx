@@ -1,10 +1,14 @@
-import { PhotoIcon } from "@heroicons/react/24/solid";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import usePrefilledData from "../hooks/usePrefilledData";
-import { useEffect, useState } from "react";
+import supabase from "../services/supabase";
 
-const Update = () => {
+import { PhotoIcon } from "@heroicons/react/24/solid";
+
+const UpdateForm = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [recipe, setRecipe] = useState("");
@@ -20,9 +24,34 @@ const Update = () => {
       setKulfiImage(getOneKulfiData.kulfiImage);
     }
   }, [getOneKulfiData, error]);
+  useEffect(() => {
+    if (getOneKulfiData) {
+      setTitle(getOneKulfiData.title);
+      setDescription(getOneKulfiData.description);
+      setRecipe(getOneKulfiData.recipe);
+      setKulfiImage(getOneKulfiData.kulfiImage);
+    }
+  }, [getOneKulfiData, error]);
 
-  function formSubmit() {}
+  const formSubmit = async (e) => {
+    e.preventDefault();
 
+    const { data, error } = await supabase
+      .from("kulfi")
+      .update({
+        title,
+        description,
+        recipe,
+      })
+      .eq("id", id);
+
+    if (error) {
+      console.error("Error updating kufli:", error);
+    } else {
+      console.log("Kufli updated successfully:", data);
+      navigate("/");
+    }
+  };
   return (
     <div className="grid justify-center ">
       <form
@@ -114,8 +143,8 @@ const Update = () => {
                       <span>Upload a file</span>
                       <input
                         value={kulfiImage}
-                        id="kulfi-image" // Unique ID
-                        onChange={(e) => setKulfiImage(e.target.value)} // Corrected typo
+                        id="kulfi-image"
+                        onChange={(e) => setKulfiImage(e.target.value)}
                         name="file-upload"
                         type="file"
                         className="sr-only"
@@ -149,4 +178,4 @@ const Update = () => {
   );
 };
 
-export default Update;
+export default UpdateForm;
