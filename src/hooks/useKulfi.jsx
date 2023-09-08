@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import supabase from "../services/supabase";
 
-function useKulfi() {
+function useKulfi(orderBy) {
   const [kulfiData, setKulfiData] = useState([]);
   const [error, setErrorData] = useState("");
 
   useEffect(() => {
     async function getKulfiData() {
-      const { data, error } = await supabase.from("kulfi").select("*");
-      // .order(orderBy, { ascending: false });
+      const { data, error } = await supabase
+        .from("kulfi")
+        .select("*")
+        .order(orderBy, { ascending: false });
 
       if (error) {
         setErrorData(error);
@@ -18,7 +20,7 @@ function useKulfi() {
     }
 
     getKulfiData();
-  }, []);
+  }, [orderBy]);
 
   return [kulfiData, error, setKulfiData];
 }
