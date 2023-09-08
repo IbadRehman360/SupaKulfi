@@ -6,13 +6,11 @@ import { useState } from "react";
 const Home = () => {
   // const [orderBy, setOrderBy] = useState("created_at");
   const [orderBy, setOrderBy] = useState("created_at");
-  const [kulfiData, error, setKulfiData] = useKulfi(orderBy);
+  const [kulfiData, error, setKulfiData] = useKulfi();
 
   // first job is to  check when it was created and than show the latest post first
 
   const handleSort = (order) => {
-    setOrderBy(order);
-
     switch (order) {
       case "created_at":
         setKulfiData((prevData) =>
@@ -21,12 +19,12 @@ const Home = () => {
         break;
       case "title":
         setKulfiData((prevData) =>
-          [...prevData].sort((a, b) => a.title.localeCompare(b.title))
+          [...prevData].sort((a, b) => b.title.localeCompare(a.title))
         );
         break;
       case "rating":
         setKulfiData((prevData) =>
-          [...prevData].sort((a, b) => a.rating.localeCompare(b.rating))
+          [...prevData].sort((a, b) => b.rating - a.rating)
         );
         break;
       default:
