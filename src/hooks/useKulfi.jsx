@@ -8,6 +8,7 @@ function useKulfi() {
   useEffect(() => {
     async function getKulfiData() {
       const { data, error } = await supabase.from("kulfi").select("*");
+      // .order(orderBy, { ascending: false });
 
       if (error) {
         setErrorData(error);
@@ -19,7 +20,7 @@ function useKulfi() {
     getKulfiData();
   }, []);
 
-  return [kulfiData, error];
+  return [kulfiData, error, setKulfiData];
 }
 
 export default useKulfi;

@@ -1,8 +1,20 @@
 import { Link } from "react-router-dom";
+import useDeleteHook from "../hooks/useDeleteHook";
 
-function Kulfi({ kulfi }) {
+function Kulfi({ kulfi, filterDelete }) {
+  async function handleDelete(e) {
+    e.preventDefault();
+    const [data, error] = await useDeleteHook(kulfi.id);
+    if (error) {
+      alert("Unable to delete due to some technical reasons");
+    } else {
+      console.log("Data deleted:", data);
+      filterDelete(kulfi.id);
+    }
+  }
+
   return (
-    <div className="kulfi-card">
+    <div className=" kulfi-card">
       <div className="flex space-x-3">
         <div className="flex-shrink-0">
           <img
@@ -12,7 +24,7 @@ function Kulfi({ kulfi }) {
           />
         </div>
         <div className="">
-          <p className="">
+          <div className="buttons">
             <Link
               to={"/" + kulfi.id}
               className="hover:underline text-md font-semibold text-gray-900"
@@ -20,7 +32,12 @@ function Kulfi({ kulfi }) {
               Chelsea Hagon
               <i className="pl-2 material-icons"> edit </i>
             </Link>
-          </p>
+
+            <button className="pl-2 material-icons" onClick={handleDelete}>
+              {" "}
+              delete{" "}
+            </button>
+          </div>
           <p className="-mt-1">
             <a href="#" className="hover:underline text-sm text-gray-500">
               December 9 at 11:43 AM

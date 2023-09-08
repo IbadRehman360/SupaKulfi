@@ -8,13 +8,17 @@ export default function Example() {
   const [description, setDescription] = useState("");
   const [recipe, setRecipe] = useState("");
   const [kulfiImage, setKufiImage] = useState("");
+  const [rating, setRating] = useState(0);
   const [error, setErrorMessage] = useState("");
 
+  const handleRating = (newRating) => {
+    setRating(newRating);
+  };
   async function formSubmit(event) {
     event.preventDefault();
     try {
       event.preventDefault();
-      if (!title || !description || !recipe || !kulfiImage) {
+      if (!title || !description || !recipe) {
         setErrorMessage(
           "Please fill out the recipe along with the other fields."
         );
@@ -24,7 +28,8 @@ export default function Example() {
           title,
           description,
           recipe,
-          kulfiImage
+          kulfiImage,
+          parseInt(rating)
         );
         if (error) {
           setErrorMessage(error.message);
@@ -66,17 +71,16 @@ export default function Example() {
                 </div>
               </div>
             </div>
-
             <div className="col-span-full">
               <label
-                htmlFor="kulfi-description" // Changed the 'for' attribute to match the 'id' of the textarea
+                htmlFor="kulfi-description"
                 className="block text-md   font-medium leading-6 text-gray-500"
               >
                 Write a few sentences about yourself
               </label>
               <div className="mt-2">
                 <textarea
-                  id="kulfi-description" // Unique ID
+                  id="kulfi-description"
                   name="about"
                   value={description}
                   rows={3}
@@ -105,7 +109,22 @@ export default function Example() {
                 />
               </div>
             </div>
-
+            <div className="flex items-center gap-16">
+              <div className="flex items-center gap-16">
+                <div className="flex">
+                  <h3 className=" text-lg font-medium leading-6 text-gray-500 mt-1.5 pr-4">
+                    Rating:
+                  </h3>
+                  {[1, 2, 3, 4, 5].map((value) => (
+                    <Star
+                      key={value}
+                      filled={value <= rating}
+                      onClick={() => handleRating(value)}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
             <div className="col-span-full">
               <label
                 htmlFor="kulfi-image" // Changed the 'for' attribute to match the 'id' of the input
@@ -141,13 +160,13 @@ export default function Example() {
                   </p>
                 </div>
               </div>
+              {error && (
+                <div className="text-red-500 mt-4 ">
+                  <p>{error}</p>
+                </div>
+              )}
             </div>
-            {error && (
-              <div className="text-red-500 mt-4">
-                <p>{error}</p>
-              </div>
-            )}
-            <div className="mt-8">
+            <div className="">
               <button
                 type="submit"
                 className="inline-flex items-center px-4 py-2 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150"
@@ -159,5 +178,20 @@ export default function Example() {
         </div>
       </form>
     </div>
+  );
+}
+
+function Star({ filled, onClick }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 20 20"
+      className={`w-10 h-10 cursor-pointer ${
+        filled ? "text-green-400 fill-current" : "text-gray-800"
+      }`}
+      onClick={onClick}
+    >
+      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+    </svg>
   );
 }

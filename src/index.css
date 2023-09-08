@@ -29,7 +29,7 @@ nav h1 {
 
 /* kulfi grid */
 .kulfi-card {
-  border: 2px solid #ff7f50;
+  border: 2px solid #5ef08a;
   border-radius: 10px;
   padding: 20px;
   border-radius: 15px;
@@ -43,7 +43,7 @@ nav h1 {
 }
 
 .kulfi-card h3 {
-  color: #ff7f50;
+  color: #93a58c;
   font-size: 24px;
 
   margin-bottom: 10px;
@@ -67,11 +67,24 @@ nav h1 {
   right: -15px;
   justify-content: center;
   text-align: center;
-  background-color: rgb(255, 102, 0);
-  color: #fff;
+  background-color: rgb(135, 190, 102);
+  color: #ffffff;
   border-radius: 6px;
   width: 40px;
   height: 0;
   padding: 20px 0;
   line-height: 0px;
+}
+.kulfi-card .buttons {
+  text-align: right;
+}
+.order-by button {
+  margin-right: 10px;
+  background: var(--primary);
+  color: #fff;
+  border: 0;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-family: "Poppins";
+  cursor: pointer;
 }
